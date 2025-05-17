@@ -1,4 +1,4 @@
-
+fron random import randint
 from time import time as TIME
 from pygame import *
 
@@ -19,7 +19,7 @@ class player1(enemy):
         if keys[K_w] and self.rect.y > 5:
 
             self.rect.y -= self.speed
-        if keys[K_s] and self.rect.y < wight - 110:
+        if keys[K_s] and self.rect.y < wight - 290:
             self.rect.y += self.speed
 
 class player2(enemy):
@@ -28,13 +28,13 @@ class player2(enemy):
         if keys[K_UP] and self.rect.y > 5:
 
             self.rect.y -= self.speed
-        if keys[K_DOWN] and self.rect.y < wight - 110:
+        if keys[K_DOWN] and self.rect.y < wight - 290:
             self.rect.y += self.speed
 
         
             
 
-class ufo(enemy):
+class ball(enemy):
     def update(self):
         self.rect.y += self.speed
         global lose
@@ -53,7 +53,9 @@ window = display.set_mode((wight,height))
 background = transform.scale(image.load('фон.jpg'), (wight,height))
 display.set_caption('Пинг понг')
 
-
+player1 = player1('платформа_1.png',10,100,10)
+player2 = player2('платформа_2.png',600,100,10)
+ball = ball('шарик.png',300,300,10,50,50)
 
 clock = time.Clock()
 FPS = 60
@@ -65,6 +67,12 @@ while rin:
     for q in event.get():
         if q.type == QUIT:
             rin = False
+
+    player1.reset()
+    player1.update()
+    player2.reset()
+    player2.update()
+    ball.reset()
 
     display.update()
     clock.tick(FPS)
