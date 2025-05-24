@@ -1,4 +1,4 @@
-fron random import randint
+
 from time import time as TIME
 from pygame import *
 
@@ -53,13 +53,15 @@ window = display.set_mode((wight,height))
 background = transform.scale(image.load('фон.jpg'), (wight,height))
 display.set_caption('Пинг понг')
 
-player1 = player1('платформа_1.png',10,100,10)
-player2 = player2('платформа_2.png',600,100,10)
+player1 = player1('платформа_1.png',10,100,10,40,100)
+player2 = player2('платформа_2.png',600,100,10,30,125)
 ball = ball('шарик.png',300,300,10,50,50)
+
 
 clock = time.Clock()
 FPS = 60
-
+dx = 3
+dy = 3
 rin = True
 
 while rin:
@@ -67,6 +69,22 @@ while rin:
     for q in event.get():
         if q.type == QUIT:
             rin = False
+
+    ball.rect.x += dx
+    ball.rect.y += dy
+    if ball.rect.y > 460 or ball.rect.y < 0:
+        dy *= -1
+    if ball.rect.x > 660 or ball.rect.x <0:
+        dx *= -1
+    if ball.rect.colliderect(player1.rect):
+        dx *= -1
+    if ball.rect.colliderect(player2.rect):
+        dx *= -1
+    #if ball.rect.y > 350:
+      #  time_text = Label(150,150,50,50,back)
+       # time_text.set_text('YOU LOSE',60, (255,0,0))
+       # time_text.draw(10,10)
+        #game_over = True  
 
     player1.reset()
     player1.update()
