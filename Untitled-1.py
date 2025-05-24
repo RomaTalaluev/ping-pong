@@ -45,7 +45,7 @@ class ball(enemy):
 
 
 pygame.init()
-font = pygame.font.SysFont('Arial',30)
+font = pygame.font.SysFont('Arial',50)
 Game_over1 = font.render('PLAYER 1 WIN', True, (0,255,0))
 Game_over2 = font.render('PLAYER 2 WIN', True, (255,0,0))
 wight = 700
@@ -66,7 +66,7 @@ FPS = 60
 dx = 3
 dy = 3
 rin = True
-
+sec = 2
 while rin:
     window.blit(background,(0,0))
     for q in event.get():
@@ -100,3 +100,4 @@ while rin:
     clock.tick(FPS)
 
 display.update()
+time.delay(2000)
