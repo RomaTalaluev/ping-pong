@@ -1,7 +1,7 @@
 
 from time import time as TIME
 from pygame import *
-
+import pygame
 class enemy(sprite.Sprite):
     def __init__(self,player_image,rect_x,rect_y,speed, size_x = 100, size_y=100):
         super().__init__()
@@ -44,8 +44,10 @@ class ball(enemy):
             lose += 1
 
 
-
-
+pygame.init()
+font = pygame.font.SysFont('Arial',30)
+Game_over1 = font.render('PLAYER 1 WIN', True, (0,255,0))
+Game_over2 = font.render('PLAYER 2 WIN', True, (255,0,0))
 wight = 700
 height = 500
 
@@ -56,6 +58,7 @@ display.set_caption('Пинг понг')
 player1 = player1('платформа_1.png',10,100,10,40,100)
 player2 = player2('платформа_2.png',600,100,10,30,125)
 ball = ball('шарик.png',300,300,10,50,50)
+
 
 
 clock = time.Clock()
@@ -80,17 +83,20 @@ while rin:
         dx *= -1
     if ball.rect.colliderect(player2.rect):
         dx *= -1
-    #if ball.rect.y > 350:
-      #  time_text = Label(150,150,50,50,back)
-       # time_text.set_text('YOU LOSE',60, (255,0,0))
-       # time_text.draw(10,10)
-        #game_over = True  
+    if ball.rect.x > 660:
+        window.blit(Game_over1, (200,200))
+        rin = False  
+    if ball.rect.x < 0:
+        window.blit(Game_over2, (200,200))
+        rin = False  
+
 
     player1.reset()
     player1.update()
     player2.reset()
     player2.update()
     ball.reset()
-
     display.update()
     clock.tick(FPS)
+
+display.update()
